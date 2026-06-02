@@ -1,0 +1,69 @@
+aid: popmenu
+name: Popmenu
+description: >-
+  Popmenu is a restaurant technology platform offering websites, interactive and
+  dynamic menus, online ordering, marketing automation, and menu management
+  designed to turn a restaurant's web presence into a customer conversion
+  engine. Popmenu promotes a Developer API that gives partners access to data on
+  menus, guests, orders, and more for custom integrations, and it connects to
+  applications such as Square, Toast, Google Analytics, Mailchimp, and Yelp,
+  plus hundreds of others through Zapier. Public technical documentation,
+  authentication details, and base URLs are not openly published; API access is
+  arranged through Popmenu's developer and support channels rather than
+  self-service onboarding.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Restaurant
+  - Menus
+  - Online Ordering
+  - Websites
+  - Marketing
+  - Integrations
+url: https://raw.githubusercontent.com/api-evangelist/popmenu/refs/heads/main/apis.yml
+created: '2026-06-02'
+modified: '2026-06-02'
+specificationVersion: '0.19'
+apis:
+  - aid: popmenu:rest-api
+    name: Popmenu Developer API
+    description: >-
+      The Popmenu Developer API gives partners access to restaurant data
+      including menus, guests, and orders for building custom integrations with
+      the Popmenu platform. Popmenu also connects with POS and marketing tools
+      such as Square, Toast, Mailchimp, and Yelp, and supports Zapier for
+      no-code automation. Detailed public reference, auth, and base URL are not
+      openly documented; access is arranged via Popmenu.
+    humanURL: https://get.popmenu.com/developer-api
+    tags:
+      - Menus
+      - Guests
+      - Orders
+    properties:
+      - type: Documentation
+        url: https://get.popmenu.com/developer-api
+  - aid: popmenu:integrations
+    name: Popmenu Integrations
+    description: >-
+      Popmenu integrates with popular restaurant and marketing applications
+      including Square, Toast, Google Analytics, Mailchimp, and Yelp, and offers
+      Zapier connectivity to link with hundreds of additional apps for custom
+      workflows around websites, menus, ordering, and marketing.
+    humanURL: https://get.popmenu.com/solutions/integrations
+    tags:
+      - Integrations
+      - Point Of Sale
+      - Marketing
+    properties:
+      - type: Documentation
+        url: https://get.popmenu.com/solutions/integrations
+common:
+  - type: Website
+    url: https://get.popmenu.com/
+  - type: Documentation
+    url: https://get.popmenu.com/developer-api
+  - type: GitHubOrganization
+    url: https://github.com/Popmenu
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
