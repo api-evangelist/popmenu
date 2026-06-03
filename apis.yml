@@ -6,11 +6,14 @@ description: >-
   designed to turn a restaurant's web presence into a customer conversion
   engine. Popmenu promotes a Developer API that gives partners access to data on
   menus, guests, orders, and more for custom integrations, and it connects to
-  applications such as Square, Toast, Google Analytics, Mailchimp, and Yelp,
-  plus hundreds of others through Zapier. Public technical documentation,
-  authentication details, and base URLs are not openly published; API access is
-  arranged through Popmenu's developer and support channels rather than
-  self-service onboarding.
+  applications such as Square, Toast, Google Analytics, Mailchimp, OpenTable,
+  Resy, DoorDash, and Yelp, plus hundreds of others through partner
+  integrations. Public technical documentation, authentication details, and base
+  URLs are not openly published; API access is arranged through Popmenu's
+  developer and partner channels rather than self-service onboarding. Popmenu's
+  engineering stack is Ruby on Rails with a GraphQL API surface, hosted on
+  Heroku, but that internal interface is not exposed as a public, documented
+  product.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
@@ -22,7 +25,7 @@ tags:
   - Integrations
 url: https://raw.githubusercontent.com/api-evangelist/popmenu/refs/heads/main/apis.yml
 created: '2026-06-02'
-modified: '2026-06-02'
+modified: '2026-06-03'
 specificationVersion: '0.19'
 apis:
   - aid: popmenu:rest-api
@@ -31,9 +34,10 @@ apis:
       The Popmenu Developer API gives partners access to restaurant data
       including menus, guests, and orders for building custom integrations with
       the Popmenu platform. Popmenu also connects with POS and marketing tools
-      such as Square, Toast, Mailchimp, and Yelp, and supports Zapier for
-      no-code automation. Detailed public reference, auth, and base URL are not
-      openly documented; access is arranged via Popmenu.
+      such as Square, Toast, Mailchimp, OpenTable, and Yelp. Detailed public
+      reference, authentication, and base URL are not openly documented; access
+      is arranged via Popmenu's developer and partner channels. There is no
+      publicly downloadable OpenAPI or API reference at this time.
     humanURL: https://get.popmenu.com/developer-api
     tags:
       - Menus
@@ -45,25 +49,108 @@ apis:
   - aid: popmenu:integrations
     name: Popmenu Integrations
     description: >-
-      Popmenu integrates with popular restaurant and marketing applications
-      including Square, Toast, Google Analytics, Mailchimp, and Yelp, and offers
-      Zapier connectivity to link with hundreds of additional apps for custom
-      workflows around websites, menus, ordering, and marketing.
-    humanURL: https://get.popmenu.com/solutions/integrations
+      Popmenu integrates with popular restaurant, ordering, delivery,
+      reservation, and marketing applications including Square, Toast, Google
+      Analytics, Google Business Profile, Mailchimp, Yelp, OpenTable, Resy,
+      DoorDash, PayPal, and social platforms (Facebook, Instagram, X), enabling
+      custom workflows around websites, menus, ordering, reputation, and
+      marketing.
+    humanURL: https://get.popmenu.com/integrations
     tags:
       - Integrations
       - Point Of Sale
       - Marketing
     properties:
       - type: Documentation
-        url: https://get.popmenu.com/solutions/integrations
+        url: https://get.popmenu.com/integrations
 common:
   - type: Website
     url: https://get.popmenu.com/
   - type: Documentation
     url: https://get.popmenu.com/developer-api
+  - type: Support
+    url: https://support.popmenu.com/s/
+  - type: Blog
+    url: https://get.popmenu.com/post
+  - type: Partners
+    url: https://get.popmenu.com/partnerships
   - type: GitHubOrganization
     url: https://github.com/Popmenu
+  - type: Features
+    data:
+      - name: Restaurant Websites
+        description: >-
+          Mobile-responsive restaurant websites with built-in SEO designed to
+          convert visitors into guests.
+      - name: Interactive Dynamic Menus
+        description: >-
+          Photo-rich, followable menu items with guest engagement, reviews, and
+          AI-driven menu recommendations.
+      - name: Online Ordering
+        description: >-
+          First-party online ordering for pickup, delivery, and dine-in that
+          keeps margins with the restaurant rather than third-party marketplaces.
+      - name: Marketing Automation
+        description: >-
+          Automated email and SMS marketing, social posting, and reputation
+          management driven by guest profile data.
+      - name: Menu Management
+        description: >-
+          Centralized menu management and publishing that syncs across the
+          website, ordering, and partner channels such as OpenTable.
+  - type: UseCases
+    data:
+      - name: Sync Menus to Partner Channels
+        description: >-
+          Use partner integrations to publish and keep menus consistent across
+          ordering, delivery, and reservation platforms.
+      - name: Unify Guest Data
+        description: >-
+          Centralize guest profile, order, and engagement data to power targeted
+          marketing campaigns.
+      - name: Streamline Online Ordering
+        description: >-
+          Connect ordering and POS systems to streamline fulfillment for pickup,
+          delivery, and dine-in.
+  - type: Integrations
+    data:
+      - name: Toast
+        description: POS integration for menu and order synchronization.
+      - name: Square
+        description: POS and payments integration.
+      - name: OpenTable
+        description: Preferred menu management and publishing partner for reservations.
+      - name: Resy
+        description: Reservation platform embed and integration.
+      - name: DoorDash
+        description: Third-party delivery integration.
+      - name: Google Analytics
+        description: Web analytics integration for restaurant websites.
+      - name: Google Business Profile
+        description: Business listing and reputation integration.
+      - name: Mailchimp
+        description: Email marketing integration.
+      - name: Yelp
+        description: Reviews, reputation, and reservation integration.
+      - name: PayPal
+        description: Online payments integration for ordering.
+      - name: Facebook
+        description: Social posting and marketing integration.
+      - name: Instagram
+        description: Social posting and marketing integration.
+  - type: Partners
+    data:
+      - name: Technology Partners
+        description: >-
+          Companies offering complementary technology solutions that integrate
+          with the Popmenu platform.
+      - name: Service Partners
+        description: >-
+          Consultants, agencies, and professional services firms focused on
+          independent restaurants.
+      - name: Product Partners
+        description: >-
+          Providers of food, beverage, equipment, and small wares to restaurants.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
