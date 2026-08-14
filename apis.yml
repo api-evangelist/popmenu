@@ -8,24 +8,45 @@ description: >-
   menus, guests, orders, and more for custom integrations, and it connects to
   applications such as Square, Toast, Google Analytics, Mailchimp, OpenTable,
   Resy, DoorDash, and Yelp, plus hundreds of others through partner
-  integrations. Public technical documentation, authentication details, and base
-  URLs are not openly published; API access is arranged through Popmenu's
-  developer and partner channels rather than self-service onboarding. Popmenu's
-  engineering stack is Ruby on Rails with a GraphQL API surface, hosted on
-  Heroku, but that internal interface is not exposed as a public, documented
-  product.
+  integrations. That API is GraphQL rather than REST: a live single endpoint was
+  verified at https://api.popmenu.com/graphql on 2026-08-13, mirrored at
+  https://my.popmenu.com/graphql, returning HTTP 200 with vendor
+  popmenu-ratelimit-* headers — but introspection and every query answer
+  "unauthorized" without partner credentials, so the schema cannot be discovered
+  publicly. No OpenAPI, Swagger, AsyncAPI, webhook catalog, MCP server, agent
+  card, llms.txt or /.well-known/ document exists on any Popmenu host.
+  Authentication, scopes, error codes and rate limits are undocumented, and
+  get.popmenu.com/developer-api is a lead-capture form rather than a reference.
+  Popmenu's engineering stack is Ruby on Rails with a React front end, and its
+  entire marketing estate returns HTTP 403 to non-browser clients.
 type: Index
 accessModel:
-  pricing: unknown
-  onboarding: unknown
+  pricing: paid
+  onboarding: approval
   trial: false
   try_now: false
   public: false
-  label: Unknown
-  confidence: low
-  source: []
-  generated: '2026-07-22'
-  method: derived
+  label: Paid · Requires approval
+  confidence: high
+  source:
+  - https://get.popmenu.com/developer-api
+  - https://get.popmenu.com/pricing
+  - https://api.popmenu.com/graphql
+  generated: '2026-08-13'
+  method: searched
+  note: >-
+    HAND-CORRECTED, do not let derive-access-model.py overwrite this without a fix
+    upstream. On 2026-08-13 that script derived `onboarding: open / public: true /
+    "Open access"` for Popmenu, which is the opposite of the truth. The cause is its
+    `auth_present and not types -> open` branch: this repo's
+    authentication/popmenu-authentication.yml exists but declares `schemes: []`
+    BECAUSE Popmenu documents no authentication at all, and the script read that
+    honest empty set as evidence of anonymous access. The real posture: the Developer
+    API is reachable only after a sales conversation
+    (get.popmenu.com/developer-api is a lead-capture form landing on /success-api),
+    every unauthenticated call to https://api.popmenu.com/graphql returns
+    `unauthorized`, and the published $159/$269/$449-per-month tiers price the
+    software platform, not API access.
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/popmenu.png
 tags:
 - Restaurant
@@ -34,9 +55,15 @@ tags:
 - Websites
 - Marketing
 - Integrations
+- Hospitality
+- GraphQL
+- Point Of Sale
+- Reservations
+- Loyalty
+- AI Marketing
 url: https://raw.githubusercontent.com/api-evangelist/popmenu/refs/heads/main/apis.yml
 created: '2026-06-02'
-modified: '2026-06-03'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 apis:
 - aid: popmenu:rest-api
@@ -45,20 +72,45 @@ apis:
     The Popmenu Developer API gives partners access to restaurant data
     including menus, guests, and orders for building custom integrations with
     the Popmenu platform. Popmenu also connects with POS and marketing tools
-    such as Square, Toast, Mailchimp, OpenTable, and Yelp. Detailed public
-    reference, authentication, and base URL are not openly documented; access
-    is arranged via Popmenu's developer and partner channels. There is no
-    publicly downloadable OpenAPI or API reference at this time.
+    such as Square, Toast, Mailchimp, OpenTable, and Yelp. The interface is
+    GraphQL, not REST: a single endpoint at https://api.popmenu.com/graphql was
+    verified live on 2026-08-13 (HTTP 200, application/json) and is mirrored at
+    https://my.popmenu.com/graphql. Introspection and every query return an
+    `unauthorized` error envelope without partner credentials, so the schema
+    cannot be discovered publicly. There is no OpenAPI, Swagger, AsyncAPI or
+    published reference, no documented authentication scheme, and no
+    self-service signup — get.popmenu.com/developer-api is a lead-capture form
+    that lands on a "we'll be reaching out to you soon" page.
   humanURL: https://get.popmenu.com/developer-api
+  baseURL: https://api.popmenu.com/graphql
   tags:
   - Menus
   - Guests
   - Orders
+  - GraphQL
   properties:
-  - type: Documentation
+  - type: DeveloperProgram
     url: https://get.popmenu.com/developer-api
+    note: >-
+      Deliberately NOT typed `Documentation` or `DeveloperPortal`. The page was read
+      verbatim (via the Internet Archive, since get.popmenu.com returns 403 to every
+      non-browser client) and contains no reference material of any kind — it is an
+      access-request form. It was typed `Documentation` in a prior round; that was a
+      false credit and is corrected here.
   - url: graphql/popmenu-graphql.md
     type: GraphQL
+  - type: AuthenticationProbe
+    url: authentication/popmenu-authentication.yml
+    note: >-
+      Deliberately NOT typed `Authentication`. The scored check reads "authentication is
+      documented as its own topic" and Popmenu documents none — this artifact records only
+      what an unauthenticated probe of the live endpoint observed.
+  - type: ErrorCatalog
+    url: errors/popmenu-problem-types.yml
+  - type: Conventions
+    url: conventions/popmenu-conventions.yml
+  - type: RateLimits
+    url: rate-limits/popmenu-rate-limits.yml
 - aid: popmenu:integrations
   name: Popmenu Integrations
   description: >-
@@ -81,16 +133,56 @@ common:
   url: security/popmenu-domain-security.yml
 - type: Website
   url: https://get.popmenu.com/
-- type: Documentation
+- type: DeveloperProgram
   url: https://get.popmenu.com/developer-api
+  note: >-
+    Was typed `Documentation` before 2026-08-13. The page carries no reference material —
+    it is an access-request form — so the Documentation pointer was a false credit and has
+    been retyped rather than removed, to preserve the link.
 - type: Support
   url: https://support.popmenu.com/s/
 - type: Blog
-  url: https://get.popmenu.com/post
+  url: https://get.popmenu.com/blog
 - type: Partners
   url: https://get.popmenu.com/partnerships
 - type: GitHubOrganization
   url: https://github.com/Popmenu
+- type: Pricing
+  url: https://get.popmenu.com/pricing
+- type: Login
+  url: https://my.popmenu.com/
+- type: TermsOfService
+  url: https://my.popmenu.com/terms
+- type: PrivacyPolicy
+  url: https://my.popmenu.com/privacy
+- type: StatusPage
+  url: https://status.popmenu.com/
+- type: Plans
+  url: plans/popmenu-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/popmenu-rate-limits.yml
+- type: Lifecycle
+  url: lifecycle/popmenu-lifecycle.yml
+- type: Conformance
+  url: conformance/popmenu-conformance.yml
+- type: Conventions
+  url: conventions/popmenu-conventions.yml
+- type: ErrorCatalog
+  url: errors/popmenu-problem-types.yml
+- type: Packages
+  url: packages/popmenu-packages.yml
+- type: LLMsTxt
+  url: llms/popmenu-llms.txt
+- type: WellKnownProbe
+  url: well-known/popmenu-well-known.yml
+  note: >-
+    Deliberately NOT typed `WellKnown`. Every /.well-known/ path 404s on the reachable
+    hosts and 403s behind the bot challenge on the rest; the file documents an absence, and
+    a `WellKnown` pointer would assert Popmenu serves a discovery surface it does not.
+- type: MCPProbe
+  url: mcp/popmenu-mcp.yml
+  note: >-
+    Deliberately NOT typed `MCPServer`. Popmenu ships no MCP server, hosted or stdio.
 - type: Features
   data:
   - name: Restaurant Websites
@@ -169,3 +261,8 @@ common:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 11
+  pass: local-v1
