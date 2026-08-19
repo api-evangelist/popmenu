@@ -1,0 +1,114 @@
+generated: '2026-08-13'
+method: probed
+source: live GET probes of every Popmenu host on 2026-08-13
+note: >-
+  RECORDED ABSENCE. Popmenu serves no /.well-known/ document on any host. Every path
+  below was probed directly; the reachable hosts (api.popmenu.com, my.popmenu.com)
+  answer 404, and the Cloudflare-fronted marketing hosts answer 403 to every
+  non-browser client including /robots.txt, so their 403s are a bot challenge and are
+  NOT evidence that a document is absent there. Because no path returned a 200 carrying
+  a real document, NO `WellKnown` and NO `SecurityTxt` pointer is emitted in apis.yml.
+hosts:
+- host: https://api.popmenu.com
+  reachable: true
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://my.popmenu.com
+  reachable: true
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://get.popmenu.com
+  reachable: false
+  block: cloudflare-bot-challenge
+  note: >-
+    Every path returns 403 text/html to curl and to WebFetch, including /robots.txt.
+    Treat these as unknown, not as absent.
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/agent-card.json
+    status: 403
+  - path: /.well-known/agent.json
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+- host: https://popmenu.com
+  reachable: false
+  block: cloudflare-bot-challenge
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/agent-card.json
+    status: 403
+  - path: /.well-known/agent.json
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+- host: https://www.popmenu.com
+  reachable: false
+  block: cloudflare-bot-challenge
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/agent-card.json
+    status: 403
+  - path: /.well-known/agent.json
+    status: 403
+- host: https://support.popmenu.com
+  reachable: false
+  block: cloudflare-bot-challenge
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/agent-card.json
+    status: 403
+  - path: /.well-known/agent.json
+    status: 403
+robots:
+- url: https://my.popmenu.com/robots.txt
+  status: 200
+  policy: 'User-agent: * / Allow: /assets/ / Disallow: /'
+  note: >-
+    Blanket Disallow for all agents; a facebookexternalhit exception explicitly Allows
+    /graphql, /privacy, /terms, /do-not-sell-my-personal-info and /assets/.
+- url: https://get.popmenu.com/robots.txt
+  status: 403
+agent_card:
+  found: false
+  note: >-
+    /.well-known/agent-card.json and the legacy /.well-known/agent.json were probed on
+    every host and returned 404 (reachable hosts) or 403 (bot-challenged hosts). No a2a/
+    artifact is written and no AgentCard pointer is emitted — an agent card is search-only
+    and must never be authored on a provider's behalf.

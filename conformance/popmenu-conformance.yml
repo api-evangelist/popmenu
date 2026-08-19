@@ -1,0 +1,121 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  derived from live probes recorded in graphql/popmenu-graphql.md,
+  conventions/popmenu-conventions.yml, errors/popmenu-problem-types.yml and
+  well-known/popmenu-well-known.yml (2026-08-13)
+note: >-
+  No compliance or certification claim was found on any Popmenu property — trust.popmenu.com
+  and security.popmenu.com return 403 under the same blanket Cloudflare bot challenge as the
+  rest of the marketing estate and could not be confirmed to exist, and probe-security-programs.py
+  returned `vdp=none trust=none`. Because no certification is published or verified, NO
+  `Compliance` and NO `TrustCenter` pointer is emitted in apis.yml. Every `conforms` value
+  below is grounded in something observed on the wire.
+standards:
+- id: graphql-over-http
+  name: GraphQL over HTTP
+  conforms: true
+  evidence: >-
+    POST https://api.popmenu.com/graphql with Content-Type application/json returns
+    HTTP 200 application/json carrying a spec-shaped `errors` array. GET is not supported
+    (301 to host root), which the spec permits.
+- id: graphql-errors
+  name: GraphQL error response format
+  conforms: partial
+  evidence: >-
+    The `errors[].message` member is spec-conformant. Popmenu adds a non-standard sibling
+    `friendlyMessage` rather than placing vendor data under the spec's `extensions` member,
+    and emits no `locations`, `path`, or `extensions`.
+- id: graphql-introspection
+  name: GraphQL introspection
+  conforms: false
+  evidence: >-
+    Introspection is rejected with `unauthorized` for anonymous callers, so no consumer can
+    discover the schema without partner credentials.
+- id: openapi
+  name: OpenAPI Specification
+  conforms: false
+  evidence: >-
+    /openapi.json, /openapi.yaml, /swagger.json, /v1/openapi.json, /api-docs, /docs and
+    /redoc all return 404 on api.popmenu.com and my.popmenu.com. No REST surface exists.
+- id: asyncapi
+  name: AsyncAPI
+  conforms: false
+  evidence: No event, streaming, or webhook specification was found on any host.
+- id: rfc9457
+  name: RFC 9457 Problem Details for HTTP APIs
+  conforms: false
+  evidence: >-
+    Errors are returned as a GraphQL errors array at HTTP 200 with content-type
+    application/json, not application/problem+json.
+- id: rfc9116
+  name: RFC 9116 security.txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on api.popmenu.com and my.popmenu.com.
+- id: rfc8615
+  name: RFC 8615 Well-Known URIs
+  conforms: false
+  evidence: >-
+    No /.well-known/ document is served on any reachable host; every probed path returns
+    404.
+- id: rfc8414
+  name: RFC 8414 OAuth 2.0 Authorization Server Metadata
+  conforms: false
+  evidence: /.well-known/oauth-authorization-server returns 404 on every reachable host.
+- id: oidc
+  name: OpenID Connect Discovery
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on every reachable host.
+- id: oauth2
+  name: OAuth 2.0
+  conforms: unknown
+  evidence: >-
+    No OAuth surface is documented and no discovery document is served. The partner
+    credential mechanism is not public, so OAuth can be neither confirmed nor ruled out.
+- id: ietf-ratelimit-headers
+  name: IETF RateLimit header fields draft
+  conforms: false
+  evidence: >-
+    Rate-limit signalling uses vendor-prefixed `popmenu-ratelimit-limit` /
+    `-remaining` / `-reset` rather than `RateLimit-*` or `X-RateLimit-*`.
+- id: rfc8594
+  name: RFC 8594 Sunset HTTP Header
+  conforms: false
+  evidence: No Sunset or Deprecation header observed on any live response.
+- id: hsts-preload
+  name: HTTP Strict Transport Security
+  conforms: true
+  evidence: >-
+    `strict-transport-security: max-age=63072000; includeSubDomains; preload` on
+    api.popmenu.com, my.popmenu.com and get.popmenu.com.
+- id: mcp
+  name: Model Context Protocol
+  conforms: false
+  evidence: >-
+    /mcp returns 404 on api.popmenu.com; no hosted or stdio MCP server was found in any
+    registry or in the provider's own material.
+- id: a2a
+  name: A2A Agent Card
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json return 404 on every reachable
+    host.
+- id: wcag
+  name: WCAG accessibility
+  conforms: claimed
+  evidence: >-
+    Popmenu's own pricing page advertises a "WCAG-conformant platform" on all three tiers
+    (https://get.popmenu.com/pricing). This is a PRODUCT claim about generated restaurant
+    websites, self-asserted with no conformance level, VPAT, or audit named — recorded as
+    `claimed`, not `true`, and it is NOT a basis for a `Compliance` pointer.
+certifications:
+  found: []
+  note: >-
+    No SOC 2, ISO 27001, PCI DSS, HIPAA or FedRAMP attestation was located. Popmenu handles
+    payments through Stripe and Spreedly per its own status page, which places card data
+    with those processors rather than in a Popmenu-published PCI posture.
+  probes:
+  - url: https://trust.popmenu.com/
+    status: 403
+  - url: https://security.popmenu.com/
+    status: 403

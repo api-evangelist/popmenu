@@ -1,0 +1,119 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  live probes of https://api.popmenu.com/graphql and https://my.popmenu.com/graphql,
+  plus https://my.popmenu.com/robots.txt (2026-08-13)
+note: >-
+  Popmenu publishes no API conventions, style guide, or integration reference. Every entry
+  below is either an OBSERVED runtime behaviour or an explicit `not-published`. Nothing
+  here is inferred from a docs page, because there is no docs page. Idempotency in
+  particular is `unknown` — NOT supported-and-undocumented, and NOT unsupported — so this
+  artifact deliberately does not carry an `Idempotency` pointer in apis.yml.
+protocol:
+  style: graphql
+  transport: HTTPS
+  endpoint: https://api.popmenu.com/graphql
+  alternate_endpoint: https://my.popmenu.com/graphql
+  http_method: POST
+  content_type: application/json
+  get_supported: false
+  get_note: GET on /graphql returns 301 to the host root, which is a 404.
+  rest: false
+  rest_note: No REST surface, OpenAPI, or Swagger document exists on any Popmenu host.
+  persisted_queries:
+    observed: true
+    evidence: >-
+      The my.popmenu.com SSR page footer emits `GQL_OPS: TRUE`, `GQL_CACHE: TRUE` and
+      `PREFETCHED_QUERIES_NUMBER: 3`, indicating persisted/prefetched GraphQL operations in
+      Popmenu's own clients. Whether persisted-query ids are available to partners is not
+      published.
+authentication:
+  style: unknown
+  documented: false
+  observed: >-
+    Unauthenticated requests receive `{"errors":[{"message":"unauthorized",
+    "friendlyMessage":"Sorry, you are not authorized to perform that action- try signing
+    back in"}]}` at HTTP 200. The "try signing back in" phrasing indicates a session-based
+    model for the first-party apps; the partner credential mechanism (bearer token, API
+    key, header name, key prefix) is not published.
+  see: authentication/popmenu-authentication.yml
+idempotency:
+  supported: unknown
+  documented: false
+  header: null
+  note: >-
+    No idempotency key header is documented and none could be observed without credentials.
+    GraphQL mutations carry no transport-level idempotency contract by default. Recorded as
+    unknown rather than false.
+pagination:
+  style: unknown
+  documented: false
+  note: >-
+    Not observable without schema access. graphql-ruby (which Popmenu forks on GitHub)
+    ships Relay-style cursor connections by default, but that is an inference about the
+    library, not a statement about Popmenu's schema, so no style is asserted here.
+  params: []
+  response_fields: []
+field_selection:
+  style: graphql-native
+  note: >-
+    Field selection, sparse fieldsets and expansion are all handled by the GraphQL query
+    itself; there is no REST-style `expand`/`fields` parameter surface.
+versioning:
+  strategy: none-observed
+  path_version: false
+  header_version: false
+  media_type_version: false
+  build_header:
+    name: popmenu-version
+    example: 7c1353711c1ca2cae16f2c0c32fcb5ecaff059b8
+    description: >-
+      A git commit SHA identifying the deployed build, present on every response. This is a
+      deploy marker, not an API version — it changes on every release and carries no
+      compatibility contract.
+  note: >-
+    GraphQL's usual versioning posture is additive-with-deprecation on schema fields;
+    Popmenu publishes no deprecation policy, so consumers have no stated compatibility
+    guarantee. See lifecycle/popmenu-lifecycle.yml.
+tracing:
+  request_id_header: x-request-id
+  request_id_format: UUID v4
+  timing_header: x-runtime
+  timing_units: seconds
+  note: >-
+    `x-request-id` is the only correlation handle available; it is NOT echoed inside the
+    error payload, so a client that logs only the response body cannot correlate a failure
+    with Popmenu support.
+error_envelope:
+  format: graphql-errors
+  rfc9457: false
+  transport_status_on_error: 200
+  see: errors/popmenu-problem-types.yml
+rate_limit_signaling:
+  headers:
+  - popmenu-ratelimit-limit
+  - popmenu-ratelimit-remaining
+  - popmenu-ratelimit-reset
+  standard: false
+  retry_after: not-observed
+  see: rate-limits/popmenu-rate-limits.yml
+security_headers:
+  observed:
+  - 'strict-transport-security: max-age=63072000; includeSubDomains; preload'
+  - 'x-frame-options: SAMEORIGIN'
+  - 'x-content-type-options: nosniff'
+  - 'x-xss-protection: 1; mode=block'
+  - 'referrer-policy: strict-origin-when-cross-origin'
+  - 'x-permitted-cross-domain-policies: none'
+  - 'x-download-options: noopen'
+  note: A complete and current defensive header set on the API host.
+caching:
+  api_response: 'cache-control: no-store, pragma: no-cache, expires: 0'
+  edge: Cloudflare (cf-cache-status DYNAMIC on API responses)
+agent_posture:
+  robots_txt: https://my.popmenu.com/robots.txt
+  policy: 'Disallow: / for all user agents'
+  note: >-
+    Popmenu's application host tells every crawler and agent to stay out; the only Allow
+    exceptions are for facebookexternalhit. There is no llms.txt, no agent card, and no MCP
+    server. See llms/popmenu-llms.txt for the generated (not provider-published) summary.

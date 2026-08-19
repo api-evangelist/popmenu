@@ -1,0 +1,90 @@
+generated: '2026-08-13'
+method: probed
+source: https://api.popmenu.com/graphql (live responses, 2026-08-13)
+format: graphql-errors
+rfc9457: false
+note: >-
+  Popmenu publishes no error reference. This catalog is what an unauthenticated caller can
+  actually observe against the live GraphQL endpoint — one error, returned uniformly. It is
+  deliberately short because that is the honest extent of the public error surface: the
+  service authenticates before it validates, so every unauthenticated request (valid query,
+  introspection query, or query naming a nonexistent field) collapses to the same envelope.
+  The authenticated error catalog is not publicly observable.
+envelope:
+  transport_status: 200
+  content_type: application/json; charset=utf-8
+  shape: |
+    {
+      "errors": [
+        {
+          "message": "<machine-readable error string>",
+          "friendlyMessage": "<end-user-facing sentence>"
+        }
+      ]
+    }
+  fields:
+  - name: errors
+    type: array
+    description: GraphQL-spec errors array. Present on failure; the `data` key is omitted entirely.
+  - name: errors[].message
+    type: string
+    description: Machine-readable error identifier. GraphQL-spec standard field.
+    standard: true
+  - name: errors[].friendlyMessage
+    type: string
+    description: >-
+      Non-standard Popmenu extension carrying an end-user-facing sentence. Not part of the
+      GraphQL spec and not namespaced under `extensions`, where the spec says vendor data
+      belongs.
+    standard: false
+  - name: errors[].locations
+    observed: false
+  - name: errors[].path
+    observed: false
+  - name: errors[].extensions
+    observed: false
+    note: >-
+      Popmenu does not use the GraphQL `extensions` member; there is no error `code`,
+      `classification`, or correlation id inside the payload. Correlation is only available
+      out-of-band via the `x-request-id` response header.
+problem_types:
+- id: unauthorized
+  message: unauthorized
+  friendly_message: 'Sorry, you are not authorized to perform that action- try signing back in'
+  transport_status: 200
+  title: Unauthorized
+  description: >-
+    Returned for any request without valid Popmenu credentials. Observed on
+    api.popmenu.com/graphql and my.popmenu.com/graphql for an introspection query, a
+    trivial `{__typename}` query, and a query naming a field that does not exist.
+  remediation: >-
+    Obtain partner credentials through Popmenu's developer/partner channel
+    (https://get.popmenu.com/developer-api). There is no self-service signup, no published
+    key format, and no documented header name.
+  observed: true
+  evidence:
+    url: https://api.popmenu.com/graphql
+    status: 200
+antipatterns:
+- id: http-200-on-error
+  description: >-
+    Every error is returned with HTTP 200. Correct for the GraphQL-over-HTTP spec, but it
+    means transport-level clients, proxies and agent frameworks cannot detect failure
+    without parsing the body.
+- id: auth-before-validation
+  description: >-
+    Field-level and syntax errors are masked behind the same `unauthorized` response, so an
+    unauthenticated integrator gets no signal about whether their query is even well-formed.
+- id: no-error-code
+  description: >-
+    No stable machine-readable error code is emitted — only a free-text `message` string
+    and a prose `friendlyMessage`. Clients must string-match to branch on error type.
+- id: vendor-field-outside-extensions
+  description: >-
+    `friendlyMessage` sits as a sibling of `message` rather than inside the spec-sanctioned
+    `extensions` object, so strict GraphQL clients may drop or reject it.
+gaps:
+- No published error reference, error code registry, or troubleshooting page exists on any
+  Popmenu property.
+- The authenticated error surface (validation errors, business-rule errors, rate-limit
+  errors) could not be observed and is not documented.

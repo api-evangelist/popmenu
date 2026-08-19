@@ -1,0 +1,52 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  registry and provider searches plus live probes of api.popmenu.com and my.popmenu.com
+  (2026-08-13)
+status: none
+note: >-
+  RECORDED ABSENCE. Popmenu ships no MCP server — hosted or local. No `MCPServer` pointer
+  is emitted in apis.yml. No candidate tool list is derived either, because there is nothing
+  to derive one FROM: there is no OpenAPI, and the GraphQL schema is authentication-gated,
+  so any tool list would be invented rather than grounded. Third-party "restaurant menu
+  scraper" MCP servers that mention Popmenu scrape Popmenu-built customer websites; they are
+  not Popmenu software and are not recorded as such.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: searched
+tools: []
+tool_count: 0
+probes:
+- url: https://api.popmenu.com/mcp
+  status: 404
+- url: https://api.popmenu.com/.well-known/oauth-authorization-server
+  status: 404
+- url: https://api.popmenu.com/.well-known/oauth-protected-resource
+  status: 404
+- url: https://my.popmenu.com/.well-known/oauth-authorization-server
+  status: 404
+searched:
+- registry: npm
+  query: popmenu
+  result: >-
+    10 first-party @popmenu packages, all React/React Native UI or printer-bridge
+    libraries. No MCP server package.
+- registry: pypi
+  query: popmenu
+  result: 404
+- source: web
+  query: Popmenu MCP server / model context protocol
+  result: >-
+    No first-party result. Only third-party scrapers that list Popmenu-built restaurant
+    sites among their supported page types.
+blockers:
+- >-
+  The GraphQL schema is auth-gated, so the operation surface an MCP server would expose
+  cannot be enumerated without partner credentials.
+- >-
+  Popmenu's own robots.txt on my.popmenu.com is `Disallow: /` for all user agents, which is
+  the opposite posture from an agent-accessible surface.

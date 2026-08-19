@@ -1,0 +1,100 @@
+generated: '2026-08-13'
+method: searched
+source: https://status.popmenu.com/
+note: >-
+  One real find (a public Atlassian Statuspage with a machine-readable API), and a set of
+  honest absences. A `StatusPage` pointer IS emitted in apis.yml because the page exists
+  and answers 200. A `Deprecation` pointer is NOT emitted — Popmenu publishes no
+  deprecation or versioning policy, and asserting one would be false.
+status_page:
+  present: true
+  url: https://status.popmenu.com/
+  provider: Atlassian Statuspage
+  page_id: bpx8lg8vtfv3
+  timezone: America/New_York
+  machine_readable: true
+  api:
+  - url: https://status.popmenu.com/api/v2/status.json
+    status: 200
+  - url: https://status.popmenu.com/api/v2/components.json
+    status: 200
+  observed:
+    checked: '2026-08-13'
+    indicator: none
+    description: All Systems Operational
+  components:
+  - My Popmenu Admin Platform
+  - MyPop CMS
+  - Customer Websites
+  - Web Builder
+  - Customer Online Ordering
+  - Online Ordering and Delivery
+  - Customer Marketing and Communication
+  - Popmenu for Owners App
+  - OrderNerd Platform
+  - AI Answering
+  - Payment Processing
+  - DNS Routing
+  - Facebook and Instagram Integration
+  - Toast POS Integration
+  upstream_dependencies_on_status_page:
+  - Stripe API
+  - Spreedly Core Transactional API
+  - Twilio (SMS Delivery, Voice)
+  - SendGrid (Email Delivery)
+  - DoorDash Drive API
+  - Square API
+  - Meta API
+  - Twitter API
+  - OpenAI
+  - Everyware API
+  dependency_note: >-
+    Popmenu's status page publicly enumerates its third-party dependencies, which is
+    unusually transparent and is the single most useful integration signal on the page —
+    it tells a partner which upstream outages will surface as Popmenu outages. Note there
+    is NO component for the Developer API / GraphQL endpoint itself, so an API consumer
+    cannot see API-specific health.
+versioning:
+  policy_published: false
+  scheme: none-observed
+  path_version: false
+  build_header: popmenu-version
+  note: >-
+    The only version signal on the wire is a git SHA in the `popmenu-version` response
+    header, which changes on every deploy and carries no compatibility meaning.
+deprecation:
+  policy_published: false
+  sunset_header: not-observed
+  deprecation_header: not-observed
+  rfc8594: false
+  note: >-
+    No deprecation policy, no Sunset or Deprecation headers observed on any live response,
+    and no schema deprecation notice is reachable (the GraphQL schema is auth-gated). No
+    `Deprecation` pointer is emitted.
+sla:
+  published: false
+  note: >-
+    No public SLA or uptime commitment was found. The Statuspage shows current state only;
+    no historical uptime percentage is exposed on the public page.
+changelog:
+  published: false
+  note: >-
+    No dated product or API changelog was found on any Popmenu host. Statuspage incident
+    history is an incident log, not a changelog, so no `changelog/` artifact is written and
+    no `ChangeLog` pointer is emitted.
+support:
+  url: https://support.popmenu.com/s/
+  status: 403
+  note: >-
+    Salesforce Experience Cloud help centre; returns 403 to non-browser clients under the
+    same Cloudflare bot challenge as the rest of the marketing estate.
+  phone: 1-844-POPMENU
+  email: support@popmenu.com
+evidence:
+- url: https://status.popmenu.com/api/v2/status.json
+  status: 200
+- url: https://status.popmenu.com/api/v2/components.json
+  status: 200
+- url: https://api.popmenu.com/graphql
+  status: 200
+  note: No Sunset/Deprecation headers present on live responses.

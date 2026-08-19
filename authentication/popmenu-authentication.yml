@@ -1,0 +1,66 @@
+generated: '2026-08-13'
+method: probed
+source: https://api.popmenu.com/graphql (live unauthenticated probes, 2026-08-13)
+documented: false
+docs: null
+note: >-
+  NO AUTHENTICATION POINTER IS EMITTED IN apis.yml. Popmenu does not document
+  authentication anywhere on its public surface — there is no auth page, no key format, no
+  header name, no token endpoint, and no scope reference. This artifact records what the
+  live endpoint does when called without credentials, which is a real measurement, but it
+  is not the provider documenting authentication, and wiring a `type: Authentication`
+  pointer would credit Popmenu with an ergonomics check it has not earned.
+  derive-authentication.py produced no profile for this slug because there is no OpenAPI to
+  derive one from.
+schemes: []
+scheme_count: 0
+oauth2: false
+openid_connect: false
+mutual_tls: false
+api_key:
+  documented: false
+  header_name: unknown
+  prefix: unknown
+observed_behaviour:
+  endpoint: https://api.popmenu.com/graphql
+  unauthenticated_request:
+    method: POST
+    body: '{"query":"{__typename}"}'
+  response:
+    http_status: 200
+    body: '{"errors":[{"friendlyMessage":"Sorry, you are not authorized to perform that action- try signing back in","message":"unauthorized"}]}'
+  interpretation: >-
+    Authentication is enforced ahead of query parsing and validation — an introspection
+    query, a trivial `{__typename}` query and a query naming a nonexistent field all return
+    the identical `unauthorized` envelope. The phrase "try signing back in" points at a
+    session-cookie model serving Popmenu's own first-party apps; how a third-party partner
+    presents credentials is not stated publicly.
+discovery_probes:
+- url: https://api.popmenu.com/.well-known/openid-configuration
+  status: 404
+- url: https://api.popmenu.com/.well-known/oauth-authorization-server
+  status: 404
+- url: https://api.popmenu.com/.well-known/oauth-protected-resource
+  status: 404
+- url: https://my.popmenu.com/.well-known/openid-configuration
+  status: 404
+- url: https://my.popmenu.com/.well-known/oauth-authorization-server
+  status: 404
+- url: https://get.popmenu.com/.well-known/openid-configuration
+  status: 403
+  note: Cloudflare bot challenge — unknown, not absent.
+access_model:
+  self_service: false
+  route: >-
+    https://get.popmenu.com/developer-api is a lead-capture form. Submitting it lands on
+    https://get.popmenu.com/success-api — "Thank you for your interest in working with
+    Popmenu! We'll be reaching out to you soon." Credentials are issued through a sales /
+    partner conversation.
+  sandbox: not-published
+  scopes: not-published
+gaps:
+- No published credential type, header name, or key prefix.
+- No token endpoint, refresh flow, or expiry policy published.
+- No OAuth or OIDC discovery document on any host.
+- No scope or permission reference, so `scopes/` is deliberately not written (there is no
+  OAuth surface to derive one from).

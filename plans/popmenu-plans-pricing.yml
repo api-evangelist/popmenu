@@ -1,0 +1,105 @@
+generated: '2026-08-13'
+method: searched
+source: https://get.popmenu.com/pricing
+source_note: >-
+  get.popmenu.com returns HTTP 403 to every non-browser client (Cloudflare bot challenge),
+  so the page was read verbatim from the Internet Archive snapshot
+  http://web.archive.org/web/20260706184441/https://get.popmenu.com/pricing (HTTP 200,
+  captured 2026-07-06). Values are Popmenu's own published figures, not estimates.
+scope_note: >-
+  THESE ARE PLATFORM SUBSCRIPTION TIERS, NOT API PLANS. Popmenu publishes no pricing,
+  quota, or metering for the Developer API — API access is arranged through the partner
+  channel with no published commercial terms. The tiers below price the restaurant
+  software product (website, menus, ordering, marketing) that the API sits behind.
+plan_count: 4
+currency: USD
+billing_periods:
+- monthly
+- annual
+annual_discount: 'Save 10% (prepaid annually)'
+api_pricing_published: false
+plans:
+- name: Starter
+  summary: Top-performing website to reach more guests.
+  price_annual_prepaid: 159
+  price_monthly: 179
+  currency: USD
+  period: month
+  included:
+  - SEO-driven website
+  - Interactive menu
+  - Google Business Profile sync
+  - Collection of guest contacts
+  - Automated email marketing
+  - Easy menu updates
+  - Dish reviews and responses
+  - WCAG-conformant platform
+  - Event calendar
+  - OpenTable menu and guest data integration
+  - iOS and Android admin app
+  - Website refresh every 18 months
+  add_ons:
+  - Online ordering & catering
+  - AI phone answering
+  - eCard gift card integration
+  - SMS text messages
+  - Reservations with capacity management
+  quota: {}
+  overage: null
+- name: Essentials
+  summary: Next-level marketing to grow faster.
+  price_annual_prepaid: 269
+  price_monthly: 299
+  currency: USD
+  period: month
+  includes_previous: Starter
+  included:
+  - Mass email campaigns
+  - Social posting and integration (Facebook, Instagram, X)
+  - Central marketing calendar
+  - Robust performance reporting
+  - Gift cards, loyalty, and offers
+  quota:
+    sms_messages_per_month: 500
+    ai_crafted_emails_and_social_posts_per_month: 6
+  add_ons:
+  - AI marketing with segmentation
+  - Online ordering & catering
+  - Digital waitlist & reservations
+  - AI phone answering
+  overage: not-published
+- name: Premier
+  summary: Fully-loaded AI marketing suite to maximize revenue.
+  badge: Best value
+  price_annual_prepaid: 449
+  price_monthly: 499
+  currency: USD
+  period: month
+  includes_previous: Essentials
+  included:
+  - Audience segmentation for tailored messages and offers
+  - Digital waitlist and reservations
+  - Guest feedback
+  - Reputation management for online listings and reviews
+  - AI-crafted review replies
+  quota:
+    sms_messages_per_month: 5000
+  add_ons:
+  - Online ordering & catering
+  - AI phone answering
+  - Boost & paid ads
+  overage: not-published
+- name: Build your own
+  summary: Custom solutions for one or many locations. Special Enterprise rates.
+  price_annual_prepaid: null
+  price_monthly: null
+  currency: USD
+  period: null
+  contact_sales: true
+  cta: "Let's talk / Contact sales"
+  quota: {}
+  overage: not-published
+limits_note: >-
+  The only hard numeric limits Popmenu attaches to a tier are the monthly SMS allowances
+  (500 on Essentials, 5,000 on Premier) and the six AI-generated emails/social posts on
+  Essentials. No API call quota, request ceiling, or overage rate is published at any tier.

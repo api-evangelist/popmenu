@@ -1,0 +1,65 @@
+generated: '2026-08-13'
+method: probed
+source: https://api.popmenu.com/graphql (live unauthenticated POST responses, 2026-08-13)
+note: >-
+  Popmenu publishes NO rate-limit documentation anywhere on its public surface — the
+  Developer API page is a lead-capture form with no reference material. Everything below
+  was read off live response headers rather than from docs, which is why method is
+  `probed` and not `searched`. The headers are vendor-prefixed and do NOT follow the IETF
+  RateLimit-* draft or the de-facto X-RateLimit-* convention, so a generic client will not
+  see them without being told the prefix.
+limit_count: 1
+documented: false
+docs: null
+standard: vendor-specific
+headers:
+- name: popmenu-ratelimit-limit
+  description: Ceiling of requests permitted in the current window.
+  observed_value: '1000000'
+  standard: false
+- name: popmenu-ratelimit-remaining
+  description: Requests remaining in the current window.
+  observed_value: '999998'
+  standard: false
+- name: popmenu-ratelimit-reset
+  description: Unix epoch seconds at which the current window resets.
+  observed_value: '1786659802'
+  standard: false
+retry_after: not-observed
+exhaustion_status: unknown
+limits:
+- scope: unknown
+  note: >-
+    The scope the counter is keyed on (per IP, per API key, per account, per endpoint) is
+    not stated by the provider and cannot be determined from an unauthenticated probe.
+    The observed ceiling of 1,000,000 with a decrementing remainder is what an anonymous
+    caller sees; an authenticated partner key may be metered differently.
+  window: unknown
+  limit: 1000000
+  burst: null
+  observed_on:
+  - https://api.popmenu.com/graphql
+  - https://my.popmenu.com/graphql
+evidence:
+- url: https://api.popmenu.com/graphql
+  method: POST
+  status: 200
+  content_type: application/json; charset=utf-8
+  headers_seen:
+  - 'popmenu-ratelimit-limit: 1000000'
+  - 'popmenu-ratelimit-remaining: 999998'
+  - 'popmenu-ratelimit-reset: 1786659802'
+  - 'x-request-id: dbd9d65b-ab11-444d-9650-accf4b014ff6'
+  - 'x-runtime: 0.005170'
+- url: https://my.popmenu.com/graphql
+  method: POST
+  status: 200
+  headers_seen:
+  - 'popmenu-ratelimit-limit: 1000000'
+  - 'popmenu-ratelimit-remaining: 999999'
+  - 'popmenu-ratelimit-reset: 1786659986'
+gaps:
+- The exhaustion status code (429 vs a GraphQL error envelope) is undocumented and was not
+  triggered.
+- No Retry-After header was observed on any response.
+- No published limits table, quota tier, or burst policy exists on any Popmenu property.

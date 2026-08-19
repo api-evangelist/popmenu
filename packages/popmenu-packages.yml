@@ -1,0 +1,167 @@
+generated: '2026-08-13'
+method: searched
+source: https://registry.npmjs.org/ (npm registry metadata, read 2026-08-13)
+note: >-
+  IMPORTANT DISTINCTION — these are first-party but they are NOT API client SDKs.
+  Popmenu publishes an active @popmenu npm scope, but every package in it is a React /
+  React Native component or device-bridge library built for Popmenu's OWN web and mobile
+  apps (Online Ordering, MyPop admin, the Owners app, receipt printers). None of them
+  wraps the Popmenu Developer API, and Popmenu publishes no client library for that API in
+  any language. For that reason this artifact carries a `Packages` pointer in apis.yml but
+  deliberately does NOT carry an `SDKs` pointer — crediting Popmenu with API SDKs it does
+  not ship would be false. Registries with no @popmenu / popmenu first-party presence:
+  PyPI (404), RubyGems (no first-party gem), Maven Central, NuGet, pkg.go.dev,
+  Packagist, crates.io.
+sdk_count: 0
+package_count: 10
+first_party_scope: https://www.npmjs.com/org/popmenu
+packages:
+- language: javascript
+  registry: npm
+  name: '@popmenu/common-ui'
+  url: https://www.npmjs.com/package/@popmenu/common-ui
+  install: npm install @popmenu/common-ui
+  official: true
+  api_client: false
+  kind: ui-components
+  license: MIT
+  version: 0.170.0
+  published: '2026-08-11'
+  description: React components for all Popmenu apps on the web.
+- language: javascript
+  registry: npm
+  name: '@popmenu/table'
+  url: https://www.npmjs.com/package/@popmenu/table
+  install: npm install @popmenu/table
+  official: true
+  api_client: false
+  kind: ui-components
+  license: MIT
+  version: 0.170.0
+  published: '2026-08-11'
+  description: React components for all Popmenu apps on the web.
+- language: javascript
+  registry: npm
+  name: '@popmenu/ordering-ui'
+  url: https://www.npmjs.com/package/@popmenu/ordering-ui
+  install: npm install @popmenu/ordering-ui
+  official: true
+  api_client: false
+  kind: ui-components
+  license: MIT
+  version: 0.170.0
+  published: '2026-08-11'
+  description: React components specifically for the Popmenu Online Ordering web app.
+- language: javascript
+  registry: npm
+  name: '@popmenu/admin-ui'
+  url: https://www.npmjs.com/package/@popmenu/admin-ui
+  install: npm install @popmenu/admin-ui
+  official: true
+  api_client: false
+  kind: ui-components
+  license: MIT
+  version: 0.170.0
+  published: '2026-08-11'
+  description: React components specifically for the MyPop web app.
+- language: javascript
+  registry: npm
+  name: '@popmenu/dashboard'
+  url: https://www.npmjs.com/package/@popmenu/dashboard
+  install: npm install @popmenu/dashboard
+  official: true
+  api_client: false
+  kind: ui-components
+  license: MIT
+  version: 0.170.0
+  published: '2026-08-11'
+  description: React dashboard components for the admin app.
+- language: javascript
+  registry: npm
+  name: '@popmenu/web-icons'
+  url: https://www.npmjs.com/package/@popmenu/web-icons
+  install: npm install @popmenu/web-icons
+  official: true
+  api_client: false
+  kind: icons
+  license: MIT
+  version: 0.170.0
+  published: '2026-08-11'
+  description: Icons as React components for web.
+- language: javascript
+  registry: npm
+  name: '@popmenu/native-icons'
+  url: https://www.npmjs.com/package/@popmenu/native-icons
+  install: npm install @popmenu/native-icons
+  official: true
+  api_client: false
+  kind: icons
+  license: MIT
+  version: 0.170.0
+  published: '2026-08-11'
+  description: Icons as React Native components.
+- language: javascript
+  registry: npm
+  name: '@popmenu/audio-player'
+  url: https://www.npmjs.com/package/@popmenu/audio-player
+  install: npm install @popmenu/audio-player
+  official: true
+  api_client: false
+  kind: ui-components
+  license: MIT
+  version: 0.170.0
+  published: '2026-08-11'
+  description: React audio player component for all Popmenu apps on the web.
+- language: javascript
+  registry: npm
+  name: '@popmenu/react-native-sunmi-printer-library'
+  url: https://www.npmjs.com/package/@popmenu/react-native-sunmi-printer-library
+  install: npm install @popmenu/react-native-sunmi-printer-library
+  official: true
+  api_client: false
+  kind: device-bridge
+  license: MIT
+  version: 1.0.1
+  published: '2026-02-26'
+  source_code: https://github.com/Popmenu/react-native-sunmi-printer-library
+  description: React Native module supporting SUNMI mobile printer devices.
+- language: javascript
+  registry: npm
+  name: '@popmenu/star-print'
+  url: https://www.npmjs.com/package/@popmenu/star-print
+  install: npm install @popmenu/star-print
+  official: true
+  api_client: false
+  kind: device-bridge
+  license: MIT
+  version: 1.3.6
+  published: '2023-11-07'
+  source_code: https://github.com/popmenu/react-native-star-prnt
+  description: StarPRNT React Native bridge for Star Micronics Bluetooth/LAN printers.
+  decay_note: >-
+    Last published 2023-11-07; superseded in practice by the SUNMI printer library
+    (2026-02-26).
+currency:
+  read: '2026-08-13'
+  note: >-
+    The eight UI/icon packages move in lockstep on a single monorepo version (0.170.0,
+    2026-08-11) and share one maintainer set, which is what establishes them as
+    first-party. Two device-bridge packages carry a github.com/Popmenu repository URL,
+    independently confirming first-party ownership of the scope.
+registries_checked:
+- registry: npm
+  result: '10 first-party packages under the @popmenu scope'
+- registry: pypi
+  result: 'HTTP 404 for pypi.org/pypi/popmenu/json — no first-party package'
+- registry: rubygems
+  result: 'search returned no first-party Popmenu gem (Popmenu runs Ruby internally but publishes none)'
+- registry: maven-central
+  result: none
+- registry: nuget
+  result: none
+- registry: pkg.go.dev
+  result: none
+- registry: packagist
+  result: none
+- registry: crates.io
+  result: none
