@@ -54,6 +54,19 @@ tags:
 - Online Ordering
 - Websites
 - Marketing
+- Integration
+- Hospitality
+- GraphQL
+- Point-of-Sale
+- Reservations
+- Loyalty
+- AI Marketing
+tags_raw:
+- Restaurant
+- Menus
+- Online Ordering
+- Websites
+- Marketing
 - Integrations
 - Hospitality
 - GraphQL
@@ -84,6 +97,11 @@ apis:
   humanURL: https://get.popmenu.com/developer-api
   baseURL: https://api.popmenu.com/graphql
   tags:
+  - Menus
+  - Guests
+  - Order
+  - GraphQL
+  tags_raw:
   - Menus
   - Guests
   - Orders
@@ -122,6 +140,10 @@ apis:
     marketing.
   humanURL: https://get.popmenu.com/integrations
   tags:
+  - Integration
+  - Point-of-Sale
+  - Marketing
+  tags_raw:
   - Integrations
   - Point Of Sale
   - Marketing
