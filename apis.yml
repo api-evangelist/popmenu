@@ -20,6 +20,17 @@ description: >-
   Popmenu's engineering stack is Ruby on Rails with a React front end, and its
   entire marketing estate returns HTTP 403 to non-browser clients.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: approval
