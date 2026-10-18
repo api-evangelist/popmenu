@@ -16,3 +16,16 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: popmenu-doordash-own
+  label: Doordash (own)
+  partner: doordash
+  partner_name: Doordash (own)
+  category: Delivery marketplace integration (POS / middleware)
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://merchants.doordash.com/en-us/preferred-integrations/compare-integrations
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null

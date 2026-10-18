@@ -1,6 +1,7 @@
 generated: '2026-10-14'
 method: searched
 checked:
+- doordash/integrations/doordash-integration-edges.yml
 - toast/integrations/toast-integration-edges.yml
 source:
 - toast/integrations/toast-integration-edges.yml
@@ -22,3 +23,35 @@ edges:
   detected: '2026-10-14'
   detected_by: mirror-platform-listings.py
   category: Marketing & CRM
+- partner_name: Doordash (own)
+  partner: doordash
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://merchants.doordash.com/en-us/preferred-integrations/compare-integrations
+  mirror_of: doordash/integrations/doordash-integration-edges.yml
+  apps:
+  - Popmenu DoorDash integration
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Delivery marketplace integration (POS / middleware)
+  features:
+  - EXPERIENCE_TAGS
+  - ITEM_LEVEL_86
+  - MENU_CONTAINS_ITEM_IMAGE_URL
+  - MENU_PULL_SUPPORTED
+  - MX_ORDER_CANCEL
+  - ORDER_CONFIRMATION_CONTAINS_PREP_TIME
+  - POS_PLUGIN
+  - RECEIVE_ORDER_CANCELLATION
+  - SSIO_INTEGRATION_ONBOARDING
+  - STORE_AVAILABILITY_WEBHOOKS
+  - STORE_SPECIAL_HOURS
+  - SUPPORT_ORDER_READY_SIGNAL
+  publisher_verified:
+  - DoorDash Certified Integration
